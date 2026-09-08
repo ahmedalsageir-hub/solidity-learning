@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    
+    // state variable
+    uint public num = 10; // stored on blockchain (storage - persistant)
+
+    function compute() public {
+        // local variable
+        uint result = 100; // (memory - volatile) 
+
+        num = 20;
+    }
+}
+/////////////Uint.sol//////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+
+    int8 num = 127;
+    
+    //-2^(8-1)
+    //-2^(7) = -128
+    //128 - 1 = 127
+    // -128 => 127
+}
+//////////Address.so///////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    address userAddr;
+    // default value: 0x0000000000000000000000000000000000000000
+}
+////////////Bytes.sol/////////////
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    
+    bytes1 a = "H";
+    bytes1 b = 0xb5;
+
+    bytes name = "Omar Osman";
+}
+///////////// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    
+    string name = "Omar";
+
+    function compute(string memory myVar) public pure {
+        string memory job = "Engineer";
+    }
+}
+////////////String.so///////////
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    
+    string name = "Omar";
+
+    function compute(string memory myVar) public pure {
+        string memory job = "Engineer";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
