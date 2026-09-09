@@ -1,0 +1,169 @@
+/////////Array.sol////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract Array {
+    // Dynamic-size array
+    uint256[] private arr;
+
+    function getElement(uint256 index) public view returns(uint256) {
+        return arr[index];
+    } 
+
+    function addElement(uint256 value) public {
+        arr.push(value);
+    }
+
+    function removeElement(uint256 index) public {
+        arr[index] = arr[arr.length - 1];
+        arr.pop();
+    }
+
+    function getLength() public view returns(uint256) {
+        return arr.length;
+    }
+}
+//////////Mapping.sol///////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    // address => grade
+    // key => value
+    mapping(address => uint256) public studentGrade;
+
+    mapping(address => bool) public isSubscribed;
+
+    // CRUD
+
+    // Create
+    function addGrade(address _student, uint256 _grade) public {
+        studentGrade[_student] = _grade;
+    }
+
+    // Read
+    function getGrade(address _student) public view returns(uint256) {
+        return studentGrade[_student];
+    }
+
+    // Update
+    function updateGrade(address _student, uint256 _newGrade) public {
+        studentGrade[_student] = _newGrade;
+    }
+
+    // Delete
+    function deleteGrade(address _student) public {
+        delete studentGrade[_student];
+    }
+}
+//////////NestedMapping.sol//////////////
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract NestedMapping {
+    
+    // election id => candidate address => votes
+    mapping(uint256 => mapping(address => uint256)) private votes;
+
+    function castVote(uint256 electionId, address candidateAddr) public {
+        votes[electionId][candidateAddr]++;
+    }
+
+    function getVotesCount(uint256 electionId, address candidateAddr) public view returns(uint256) {
+        return votes[electionId][candidateAddr];
+    }
+
+}
+/////////////////MappingWithArray.sol/////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MappingWithArray {
+
+    mapping(address => uint256[]) private studentGrades;
+
+    function addGrade(address _student, uint256 _grade) public {
+        studentGrades[_student].push(_grade);
+    }
+
+    function getGrade(address _student, uint256 _index) public view returns(uint256) {
+        return studentGrades[_student][_index];
+    }
+
+    function updateGrade(address _student, uint256 _index, uint256 _newGrade) public {
+        studentGrades[_student][_index] = _newGrade;
+    }
+
+    function deleteGrade(address _student, uint256 _index) public {
+        delete studentGrades[_student][_index];
+    }
+
+}
+//////////////Struct.sol//////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract Struct {
+   
+    struct Student {
+        address studentAddr;
+        uint256 id;
+        string name;
+    }
+
+    // Structs with mappings
+    mapping(address => Student) public students;
+
+    function addStudent(uint256 _id, string memory _name) public {
+        Student memory student = Student({
+            id: _id,
+            name: _name,
+            studentAddr: msg.sender          
+        });
+
+        students[msg.sender] = student;
+    }
+
+    function deleteStudent(address _key) public {
+        delete students[_key];
+    } 
+}
+
+///////////////Enum.sol///////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract Enums {
+
+    // Define enum
+    enum Status {
+        Pending, //0
+        Shipped, //1
+        Delivered, //2
+        Cancelled //3
+    }
+
+    Status public orderStatus; // default value = 1st item in enum
+
+    
+    function shipOrder() public {
+        orderStatus = Status.Shipped;
+    }
+
+    function deliverOrder() public {
+        orderStatus = Status.Delivered;
+    }
+
+    function resetStatus() public {
+        delete orderStatus; // default value
+    }
+
+
+    // Readability
+    // Maintainability
+
+
+}
+
+
