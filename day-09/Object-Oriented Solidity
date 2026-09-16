@@ -1,0 +1,163 @@
+///////////Constructor.sol/////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+}
+////////////////Modifiers.sol////////////
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+
+    uint256 constant PRICE = 100; // 100 wei
+    uint256 public productsSold;
+
+    modifier checkPrice(address student) {
+        require(student != address(0));
+        require(msg.value >= PRICE, "Amount less than price");
+        _;
+        productsSold++;
+    }
+
+    function buyProduct(address student) public checkPrice(student) payable {
+
+    }
+}
+//////////////////VisModifiers.sol///////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract A {
+    function myFunc() public {
+
+    }
+
+    function myFunc2() public {
+        myFunc();
+    }
+
+    function myFunc3() external {
+
+    }
+
+    function myFunc4() internal {
+
+    }
+
+    function myFunc5() private {
+
+    }
+}
+
+// Child = Derived 
+contract B is A {
+    function foo() public {
+        myFunc2();
+    }
+}
+////////////////Inheritance.sol/////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract A {
+    uint256 public num = 10;
+    uint256 internal num2 = 10;
+    uint256 private num3 = 10;
+
+    function sayHello() public pure returns(string memory) {
+        return "Hello World!";
+    }
+}
+
+contract B is A {
+    function getNum() public view returns(uint256) {
+        return num2 + 5;
+    }
+}
+/////////////////////////MoreInheritance.sol/////////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+// Events Example
+contract A {
+    event ticketSold(address indexed, uint256 indexed);
+}
+
+contract B is A {
+    function buyTicket() public  {
+        emit ticketSold(msg.sender, 100);
+    }
+}
+///////////////////////Override.sol////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract A {
+    function sayHello() public virtual pure returns(string memory) {
+        return "Hello from parent";
+    }
+}
+
+contract B is A {
+    function sayHello() public override pure returns(string memory) {
+        return "Hello from child";
+    }
+}
+
+//////////////////////Abstract.sol///////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+abstract contract Animal {
+    function makeSound() public virtual pure returns(string memory);
+
+    function walk() public pure returns(string memory) {
+        return "Walking";
+    }
+}
+
+contract Dog is Animal {
+    // makeSound
+    function makeSound() public override pure returns(string memory) {
+        return "Woof!";
+    }
+}
+
+contract Cat is Animal {
+    // makeSound
+    function makeSound() public override pure returns(string memory) {
+        return "Meow!";
+    }
+}
+/////////////////////Interface.sol///////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+interface IAnimal {
+    function makeSound() external pure returns(string memory);
+}
+
+contract Dog is IAnimal {
+    // makeSound
+    function makeSound() public override pure returns(string memory) {
+        return "Woof!";
+    }
+}
+
+contract Cat is IAnimal {
+    // makeSound
+    function makeSound() public override pure returns(string memory) {
+        return "Meow!";
+    }
+}
+
+
+
