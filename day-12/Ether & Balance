@@ -1,0 +1,56 @@
+//////////////////////Balance.sol/////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract QueryBalance {
+
+    function fund() public payable {}
+
+    // Query balance
+    function getBalance() public view returns(uint256) {
+        // type casting => type conversion 
+        return address(this).balance; // wei
+    }
+}
+////////////////////SendMoney.sol/////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract SendMoney {
+
+    address owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function fund() public payable {}
+
+    // transfer
+    function sendMoney1() public {
+        payable(owner).transfer(0.5 ether);
+    }
+
+    // send
+    function sendMoney2() public {
+        bool success = payable(owner).send(0.5 ether);
+        require(success, "Transfer failed!");
+    }
+
+    // call
+    function sendMoney3() public {
+        (bool success, ) = payable(owner).call{value: 0.5 ether}("");
+        require(success, "Transfer failed!");
+    }
+}
+//////////////Receive.sol//////////////////
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.31;
+
+contract MyContract {
+    uint256 public price = 100;
+
+    receive() external payable {
+        price = 200;
+    }
+}
